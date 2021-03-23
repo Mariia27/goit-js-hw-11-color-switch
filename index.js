@@ -13,27 +13,27 @@ const refs = {
   stopBtn: document.querySelector('[data-action="stop"]'),
   body: document.querySelector('body'),
 }
-const switching = {
+ 
+  function stop(){
+    clearInterval(this.intervalId);
+    this.isActive = false;
+    refs.stopBtn.disabled = true;
+};
 
-  isActive: true,
-  startSwitching() {
-    if (this.isActive) {
+
+function start() {
+  this.isActive = true;
+    let invalidId = null;
+    if (invalidId) {
       return
     }
     this.intervalId = setInterval(() => {
       refs.body.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length)]
     }, 1000)
-   },
-  stopSwitching(){
-    clearInterval(this.intervalId);
-    this.isActive = false;
-  },
-
-}
+  refs.stopBtn.disabled = false;
+};
 function randomIntegerFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-refs.startBtn.addEventListener('click', 
-  switching.startSwitching.bind(switching)
-);
-refs.stopBtn.addEventListener('click', switching.stopSwitching.bind(switching));
+refs.startBtn.addEventListener('click',start);
+refs.stopBtn.addEventListener('click', stop);
