@@ -13,24 +13,20 @@ const refs = {
   stopBtn: document.querySelector('[data-action="stop"]'),
   body: document.querySelector('body'),
 }
- 
-  function stop(){
-    clearInterval(this.intervalId);
-    this.isActive = false;
-    refs.stopBtn.disabled = true;
-};
+  let intervalId = null;
 
 
 function start() {
-  this.isActive = true;
-    let invalidId = null;
-    if (invalidId) {
-      return
-    }
-    this.intervalId = setInterval(() => {
+    if (intervalId) return
+   intervalId = setInterval(() => {
       refs.body.style.backgroundColor = colors[randomIntegerFromInterval(0, colors.length)]
     }, 1000)
-  refs.stopBtn.disabled = false;
+  refs.stopBtn.disabled = true;
+};
+
+  function stop(){
+    clearInterval(intervalId);
+    refs.stopBtn.disabled = false;
 };
 function randomIntegerFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
